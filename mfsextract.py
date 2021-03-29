@@ -76,14 +76,17 @@ def getfilecontents(block,length):
     return contents[:length]
 
 fh.seek(drDirSt*512)
-i=0
 while True:
     flFlgs=fh.read(1)
-    if flFlgs==b'\x00':
-        fh.read(50)
-        i+=50
-    else:
+    flType=int.from_bytes(fh.read(1),'big')
+    while flFlgs==b'\x00':  #loop until next record found
+        flFlgs=fh.read(1)
         flType=int.from_bytes(fh.read(1),'big')
+        if fh.tell()>=((drDirSt+drBlLen-1)*512): #we're past the end of the file directory, exit out
+            break
+    if fh.tell()>=((drDirSt+drBlLen-1)*512): #we're past the end of the file directory, exit out
+        break
+    if flFlgs!=b'\x00':
         flUsrWds=fh.read(16)
         flFlNum=int.from_bytes(fh.read(4),'big')
         flStBlk=int.from_bytes(fh.read(2),'big')
@@ -96,7 +99,8 @@ while True:
         flMdDat=int.from_bytes(fh.read(4),'big')
         flNaml=int.from_bytes(fh.read(1),'big')
         flNam=fh.read(flNaml)
-        i+=51+flNaml
+        if (fh.tell()%2==1):  #align to word boundary after reading name
+            fh.read(1)
         if flFlNum!=0:
             print(hex(fh.tell()),flFlNum,flNaml,flNam)
             if 'verbose' in sys.argv:
@@ -120,14 +124,6 @@ while True:
                 oh.write(content)
                 oh.close()
             fh.seek(location)
-    if (fh.tell()%2==1):
-        fh.read(1)
-        i+=1
-    if i>512:
-        fh.seek(math.floor(fh.tell()/512)*512)
-        i=0
-    if fh.tell()>=((drDirSt+drBlLen-1)*512):
-        break
 
 fh.close()
 
