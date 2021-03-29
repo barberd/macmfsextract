@@ -19,4 +19,4 @@ Conceptually, one could run this directly on a floppy drive such as:
 
 ./mfsextract.py /dev/fd0
 
-but as most of these images were on 400k Macintosh floppies, it would only really make sense on an m68k linux install on a Macintosh both new enough to run Linux (68020 or later processor) and old enough to have a floppy drive capable of reading the original 400k floppies....perhaps an SE/30 or Mac Classic II.
+but as most of these images were on 400k Macintosh floppies, it would only really make sense on an m68k linux install on a Macintosh both new enough to run Linux (68020 or later processor) and old enough to have a floppy drive capable of reading the original 400k floppies....perhaps a SE/30 or Classic II.
