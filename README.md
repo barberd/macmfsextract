@@ -8,11 +8,15 @@ Details on MFS were obtained from https://www.macgui.com/news/article.php?t=482
 Usage:
 
 To extract all files in the IMAGEFILE MFS image to the current directory
+
 ./mfsextract.py IMAGEFILE
 
 To show additional details such as the block mapping and timestamps, run:
+
 ./mfsextract.py IMAGEFILE verbose
 
 Conceptually, one could run this directly on a floppy drive such as:
+
 ./mfsextract.py /dev/fd0
+
 but as most of these images were on 400k Macintosh floppies, it would only really make sense on an m68k linux install on a Macintosh both new enough to run Linux (68020 or later processor) and old enough to have a floppy drive capable of reading the original 400k floppies....perhaps an SE/30 or Mac Classic II.
