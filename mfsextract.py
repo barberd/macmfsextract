@@ -19,7 +19,7 @@ import math
 filename=sys.argv[1]
 
 file_size = os.path.getsize(filename)
-fh=open(filename,"r+b")
+fh=open(filename,"rb")
 
 fh.seek(1026)
 
